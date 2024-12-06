@@ -44,8 +44,8 @@ public class CubeSpawner : MonoBehaviour
                 cubeRenderer.material.color = randomColor;
             }
 
-            Rigidbody rb = newCube.GetComponent<Rigidbody>();
-            rb.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+            Rigidbody rigidBody = newCube.GetComponent<Rigidbody>();
+            rigidBody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
         }
     }
 }

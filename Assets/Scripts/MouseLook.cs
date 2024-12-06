@@ -1,28 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    private enum _rotationAxes
+    [SerializeField] private RotationAxes _axe = RotationAxes.MouseX;
+    [SerializeField] private float _sensitivity = 9.0f;
+
+    private string _axisX = "Mouse X";
+    private string _axisY = "Mouse Y";
+
+    private enum RotationAxes
     {
         MouseX = 0,
         MouseY = 1,
     }
 
-    [SerializeField] private _rotationAxes _axe = _rotationAxes.MouseX;
-    [SerializeField] private float _sensitivity = 9.0f;
-
-    void Update()
+    private void Update()
     {
-        float deltaY = _sensitivity * Input.GetAxis("Mouse X");
-        float deltaX = _sensitivity * Input.GetAxis("Mouse Y");
+        float deltaY = _sensitivity * Input.GetAxis(_axisX);
+        float deltaX = _sensitivity * Input.GetAxis(_axisY);
 
-        if (_axe == _rotationAxes.MouseX)
+        if (_axe == RotationAxes.MouseX)
         {
             transform.Rotate(0, deltaY, 0);
         }
-        else if (_axe == _rotationAxes.MouseY)
+        else if (_axe == RotationAxes.MouseY)
         {
             transform.Rotate(-deltaX, 0, 0);
         }
