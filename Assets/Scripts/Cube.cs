@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeLogic : MonoBehaviour
+public class Cube : MonoBehaviour
 {
-    private Spawner _spawner;
-    private Explosion _explosion;
+    [SerializeField] private Spawner _spawner;
+    [SerializeField] private Explosion _explosion;
+
     private float _currentSplitChance = 1f;
     private float _splitChanceReductionFactor = 2f;
 
-    private void Start()
-    {
-        _spawner = FindObjectOfType<Spawner>();
-        _explosion = FindObjectOfType<Explosion>();
-    }
+    public Rigidbody Rigidbody => GetComponent<Rigidbody>();
 
     private void OnMouseDown()
     {
@@ -26,10 +23,16 @@ public class CubeLogic : MonoBehaviour
         Vector3 curentPosition = gameObject.transform.position;
         Vector3 currentScale = gameObject.transform.localScale;
 
-        List<GameObject> newCubes = _spawner.SpawnCubes(currentScale, curentPosition, _currentSplitChance);
+        List<Cube> newCubes = _spawner.SpawnCubes(currentScale, curentPosition, _currentSplitChance);
         _explosion.Explode(curentPosition, newCubes);
 
         Destroy(gameObject);
+    }
+
+    public void Initialize(Spawner spawnerComponent, Explosion explosionComponent)
+    {
+        _spawner = spawnerComponent;
+        _explosion = explosionComponent;
     }
 
     public void ReduceChanceToSplit(float splitChance)

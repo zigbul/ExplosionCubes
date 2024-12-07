@@ -7,12 +7,11 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float _explosionForce = 500f;
     [SerializeField] private float _explosionRadius = 5f;
 
-    public void Explode(Vector3 explosionCenter, List<GameObject> cubes)
+    public void Explode(Vector3 explosionCenter, List<Cube> cubes)
     {
-        foreach (GameObject cube in cubes)
+        foreach (Cube cube in cubes)
         {
-            Rigidbody rigidbody = cube.GetComponent<Rigidbody>();
-            rigidbody.AddExplosionForce(_explosionForce, explosionCenter, _explosionRadius);
+            cube.Rigidbody.AddExplosionForce(_explosionForce, explosionCenter, _explosionRadius); ;
         }
     }
 }
