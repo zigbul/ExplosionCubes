@@ -7,6 +7,9 @@ public class MouseLook : MonoBehaviour
 
     private string _axisX = "Mouse X";
     private string _axisY = "Mouse Y";
+    private float minimumAngle = -45.0f;
+    private float maximumAngle = 45.0f;
+    private float verticalRotation = 0;
 
     private enum RotationAxes
     {
@@ -25,7 +28,11 @@ public class MouseLook : MonoBehaviour
         }
         else if (_axe == RotationAxes.MouseY)
         {
-            transform.Rotate(-deltaX, 0, 0);
+            verticalRotation -= deltaX;
+            verticalRotation = Mathf.Clamp(verticalRotation, minimumAngle, maximumAngle);
+
+            float horizontalRotation = transform.localEulerAngles.y;
+            transform.localEulerAngles = new Vector3(verticalRotation, horizontalRotation, 0);
         }
     }
 }
