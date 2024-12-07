@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,17 +13,18 @@ public class Cube : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Vector3 curentPosition = gameObject.transform.position;
+        Vector3 currentScale = gameObject.transform.localScale;
+
         if (_currentSplitChance < Random.value)
         {
+            _explosion.ExplodeAllCubesInRadius(curentPosition, currentScale);
             Destroy(gameObject);
             return;
         }
 
-        Vector3 curentPosition = gameObject.transform.position;
-        Vector3 currentScale = gameObject.transform.localScale;
-
         List<Cube> newCubes = _spawner.SpawnCubes(currentScale, curentPosition, _currentSplitChance);
-        _explosion.Explode(curentPosition, newCubes);
+        //_explosion.ExplodeNewCubes(curentPosition, newCubes);
 
         Destroy(gameObject);
     }

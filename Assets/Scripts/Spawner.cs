@@ -26,7 +26,6 @@ public class Spawner : MonoBehaviour
             newCube.transform.localScale = scale * _scaleReductionFactor;
             newCube.GetComponent<Cube>().ReduceChanceToSplit(splitChance);
 
-            Debug.Log($"Split chance: {splitChance * 100}%");
             cubes.Add(newCube);
         }
 
